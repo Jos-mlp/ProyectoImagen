@@ -1,9 +1,11 @@
 import numpy as np
 import cv2 as cv
+
 def nothing(x):
     pass
 # Create a black image, a window
-img = np.zeros((300,512,3), np.uint8)
+img = cv.imread (cv.samples.findFile("cr7.jpg"))
+
 cv.namedWindow('image')
 # create trackbars for color change
 cv.createTrackbar('R','image',0,255,nothing)
@@ -25,5 +27,5 @@ while(1):
     if s == 0:
         img[:] = 0
     else:
-        img[:] = [b,g,r]
+        img[:] = img[:]+[b,g,r]
 cv.destroyAllWindows()
