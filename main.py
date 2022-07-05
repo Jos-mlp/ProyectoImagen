@@ -87,3 +87,11 @@ plt.imshow(b2)
 plt.show()
 plt.imshow(b3)
 plt.show()
+
+#Imprime 
+# crea una imagen en negro
+imgNegra = np.zeros((512,512,3), np.uint8)
+#Agrega un rectangulo a la imagen(cordenada 1 superior)(cordenada 2 superior)(Color rgb)(borde)
+cv2.rectangle(imgNegra,(384,0),(510,128),(0,255,0),-1)
+plt.imshow(imgNegra)
+plt.show()
