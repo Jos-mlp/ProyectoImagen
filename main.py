@@ -1,89 +1,29 @@
-
-import cv2
-import imageio
 import numpy as np
-import matplotlib.pyplot as plt
-
-def voltearY(Matriz):
-    f, c, p = Matriz.shape
-    reflejar = np.zeros((f, c, p), int)
-    for capa in range(0,p):
-        for fila in range(0,f):
-            reflejar[fila,:,capa] = Matriz[fila,::-1,capa]
-    return reflejar
-    
-
-def voltearAH(Matriz):
-    f, c, p = Matriz.shape
-    rotar = np.zeros((c, f, p), int)
-    reflejada = voltearY(Matriz)
-    for capa in range(0, p):
-        rotar[:,:,capa] = reflejada[:,:,capa].T
-    return rotar
-
-def voltear360(Matriz):
-    f, c, p = Matriz.shape
-    rotar = np.zeros((c, f, p), int)
-    reflejada = voltearAH(Matriz)
-    for capa in range(0, p):
-        rotar[:,:,capa] = reflejada[:,::-1,capa].T
-    return rotar
-
-def recortar(Matriz,x,y):
-    cortada = Matriz
-    cortada = Matriz[y:,x:,:]
-    return cortada
-
-def dividir(Matriz,opcion=0):
-    if (opcion==0):       
-        a1,a2=np.split(Matriz,2)
-    if (opcion==1):
-       a1,a2=np.split(img,2,axis=1) 
-    return a1,a2
-
-img = cv2.imread("tigre.jpg",1)
-#plt.axis([0, 600, 0, 600])
-
-#Muestra los datos de la imagen
-print(img.shape)
-print(type(img))
-
-#Imprime la imagen normal
-img=cv2.cvtColor(img,cv2.COLOR_BGR2RGB)
-plt.imshow(img)
-plt.show()
-
-
-#Recorta la imagen
-#(matriz,x,y)
-recor = recortar(img,400,100)
-plt.imshow(recor)
-plt.show()
-
-
-#(img,opcion)
-#opcion=1 -> vertical
-#opcion=vacio -> horizontal
-#Imprime la imagen dividida a la mitad horizontal
-a1,a2=dividir(img)
-plt.imshow(a1)
-plt.show()
-plt.imshow(a2)
-plt.show()
-#Imprime la imagen dividida a la mitad vertical
-a1,a2=dividir(img,1)
-plt.imshow(a1)
-plt.show()
-plt.imshow(a2)
-plt.show()
-
-
-b1 = voltearY(img)
-b2 = voltearAH(img)
-b3 = voltear360(img)
-plt.imshow(b1)
-plt.show()
-plt.imshow(b2)
-plt.show()
-plt.imshow(b3)
-plt.show()
+import cv2 as cv
+def nothing(x):
+    pass
+# Create a black image, a window
+img = np.zeros((300,512,3), np.uint8)
+cv.namedWindow('image')
+# create trackbars for color change
+cv.createTrackbar('R','image',0,255,nothing)
+cv.createTrackbar('G','image',0,255,nothing)
+cv.createTrackbar('B','image',0,255,nothing)
+# create switch for ON/OFF functionality
+switch = '0 : OFF \n1 : ON'
+cv.createTrackbar(switch, 'image',0,1,nothing)
+while(1):
+    cv.imshow('image',img)
+    k = cv.waitKey(1) & 0xFF
+    if k == 27:
+        break
+    # get current positions of four trackbars
+    r = cv.getTrackbarPos('R','image')
+    g = cv.getTrackbarPos('G','image')
+    b = cv.getTrackbarPos('B','image')
+    s = cv.getTrackbarPos(switch,'image')
+    if s == 0:
+        img[:] = 0
+    else:
+        img[:] = [b,g,r]
+cv.destroyAllWindows()
