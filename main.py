@@ -65,8 +65,12 @@ def dividir(Matriz,opcion=0):
     return a1,a2
 
 def cambiarRGB():
+<<<<<<< HEAD
     # crea una matriz negra(imagen)
     img = cv2.imread (cv2.samples.findFile("cr7.jpg"))
+=======
+    img = cv2.imread ( 'dj.jpg')
+>>>>>>> 47fa028c1f25c637db2f52c78baa7db572b3d177
     # crea una imagen auxiliar de ceros
     img2 = np.zeros((img.shape[0],img.shape[1],img.shape[2]), np.uint8)
     cv2.namedWindow('image')
@@ -178,6 +182,10 @@ plt.show()
 
 sumarImagenes()
 
+<<<<<<< HEAD
 cambiarRGB()
 
 #recortar()
+=======
+cambiarRGB()
+>>>>>>> 47fa028c1f25c637db2f52c78baa7db572b3d177
