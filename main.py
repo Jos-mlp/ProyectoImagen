@@ -1,4 +1,3 @@
-
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
@@ -40,7 +39,8 @@ def dividir(Matriz,opcion=0):
        a1,a2=np.split(img,2,axis=1) 
     return a1,a2
 
-def cambiarRGB(img):
+def cambiarRGB():
+    img = cv2.imread ( 'dj.jpg')
     # crea una imagen auxiliar de ceros
     img2 = np.zeros((img.shape[0],img.shape[1],img.shape[2]), np.uint8)
     cv2.namedWindow('Imagen RGB')
@@ -68,7 +68,37 @@ def cambiarRGB(img):
             img2[:] = img[:]+[b,g,r]
     cv2.destroyAllWindows()
 
-img = cv2.imread("tigre.jpg",1)
+
+def sumarImagenes():
+    img1 = cv2.imread ( 'dj.jpg')
+    img2 = cv2.imread ( 'tigre.jpg')
+    cv2.imshow('imagen1',img1)
+    cv2.imshow('imagen2',img2)
+    for i in range (0,600):
+        for j in range (0,600):
+            r=(int(img1[i][j][0]) + int(img2[i][j][0]))
+            if(r>=255):
+                img1[i][j][0] = 255
+            else:
+                img1[i][j][0] = r
+            
+            g = (int(img1[i][j][1]) + int(img2[i][j][1]))
+            if(g>=255):
+                img1[i][j][1] = 255
+            else:
+                img1[i][j][1] = g
+            
+            b=(int(img1[i][j][2]) + int(img2[i][j][2]))
+            if(b>=255):
+                img1[i][j][2] = 255
+            else:
+                img1[i][j][2] = b
+           
+    cv2.imshow('imagenes sumadas',img1)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+img = cv2.imread("tigre.jpg")
+img2 = cv2.imread("dj.jpg")
 #plt.axis([0, 600, 0, 600])
 
 
@@ -123,10 +153,6 @@ plt.show()
 plt.imshow(b3)
 plt.show()
 
-#Imprime 
-# crea una imagen en negro
-imgNegra = np.zeros((512,512,3), np.uint8)
-#Agrega un rectangulo a la imagen(cordenada 1 superior)(cordenada 2 superior)(Color rgb)(borde)
-cv2.rectangle(imgNegra,(384,0),(510,128),(0,255,0),-1)
-plt.imshow(imgNegra)
-plt.show()
+sumarImagenes()
+
+cambiarRGB()
