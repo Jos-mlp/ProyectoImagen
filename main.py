@@ -40,8 +40,44 @@ def dividir(Matriz,opcion=0):
        a1,a2=np.split(img,2,axis=1) 
     return a1,a2
 
+def cambiarRGB(img):
+    # crea una imagen auxiliar de ceros
+    img2 = np.zeros((img.shape[0],img.shape[1],img.shape[2]), np.uint8)
+    cv2.namedWindow('Imagen RGB')
+
+    # crea las 4 trackbar
+    cv2.createTrackbar('R','image',0,100,nothing)
+    cv2.createTrackbar('G','image',0,100,nothing)
+    cv2.createTrackbar('B','image',0,100,nothing)
+    # creamos el switch on/off
+    switch = '0 : OFF \n1 : ON'
+    cv2.createTrackbar(switch, 'image',0,1,nothing)
+    while(1):
+        cv2.imshow('image',img2)
+        k = cv2.waitKey(1) & 0xFF
+        if k == 27:
+            break
+        # obtinene la posicion
+        r = cv2.getTrackbarPos('R','image')
+        g = cv2.getTrackbarPos('G','image')
+        b = cv2.getTrackbarPos('B','image')
+        s = cv2.getTrackbarPos(switch,'image')
+        if s == 0:
+            img2[:] = img[:]
+        else:
+            img2[:] = img[:]+[b,g,r]
+    cv2.destroyAllWindows()
+
 img = cv2.imread("tigre.jpg",1)
 #plt.axis([0, 600, 0, 600])
+
+
+def nothing(x):
+    pass
+
+
+
+
 
 #Muestra los datos de la imagen
 print(img.shape)
