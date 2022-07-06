@@ -1,2 +1,3 @@
 # ProyectoImagen
-Proyecto de imágenes en Python
+Proyecto de imágenes en Python, manejo de capas.
+
