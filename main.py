@@ -27,7 +27,8 @@ def voltear360(Matriz):
         rotar[:,:,capa] = reflejada[:,::-1,capa].T
     return rotar
 
-"""def recortar():
+
+def recortar():
     img = cv2.imread ('dj.jpg')
     # crea una imagen auxiliar de ceros
     img2 = np.zeros((img.shape[0],img.shape[1],img.shape[2]), np.uint8)
@@ -55,7 +56,7 @@ def voltear360(Matriz):
         else:
             img2 = img[hu:,wl:,:]
     cv2.destroyAllWindows()
-"""
+
 
 def dividir(Matriz,opcion=0):
     if (opcion==0):       
