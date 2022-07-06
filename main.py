@@ -27,10 +27,34 @@ def voltear360(Matriz):
         rotar[:,:,capa] = reflejada[:,::-1,capa].T
     return rotar
 
-def recortar(Matriz,x,y):
-    cortada = Matriz
-    cortada = Matriz[y:,x:,:]
-    return cortada
+def recortar():
+    img = cv2.imread ('dj.jpg')
+    # crea una imagen auxiliar de ceros
+    img2 = np.zeros((img.shape[0],img.shape[1],img.shape[2]), np.uint8)
+    cv2.namedWindow('image')
+    # crea trackbars para cambiar el tamanio
+    we=int(img.shape[0]-1)
+    hi=int(img.shape[1]-1)
+    cv2.createTrackbar('WL','image',0,we,nothing)
+    cv2.createTrackbar('HU','image',0,hi,nothing)
+    # crea un switch on/off
+    switch = '0 : OFF \n1 : ON'
+    cv2.createTrackbar(switch, 'image',0,1,nothing)
+    while(1):
+        cv2.imshow('image',img2)
+        cv2.resizeWindow('image',600,600)
+        k = cv2.waitKey(1) & 0xFF
+        if k == 27:
+            break
+        # obtiene la posicion de los trackbars
+        wl = cv2.getTrackbarPos('WL','image')
+        hu = cv2.getTrackbarPos('HU','image')
+        s = cv2.getTrackbarPos(switch,'image')
+        if s == 0:
+            img2 = img[:]
+        else:
+            img2 = img[hu:,wl:,:]
+    cv2.destroyAllWindows()
 
 def dividir(Matriz,opcion=0):
     if (opcion==0):       
@@ -40,16 +64,16 @@ def dividir(Matriz,opcion=0):
     return a1,a2
 
 def cambiarRGB():
-    # Create a black image, a window
+    # crea una matriz negra(imagen)
     img = cv2.imread (cv2.samples.findFile("cr7.jpg"))
     # crea una imagen auxiliar de ceros
     img2 = np.zeros((img.shape[0],img.shape[1],img.shape[2]), np.uint8)
     cv2.namedWindow('image')
-    # create trackbars for color change
+    # crea trackbars para cambiar el color
     cv2.createTrackbar('R','image',0,100,nothing)
     cv2.createTrackbar('G','image',0,100,nothing)
     cv2.createTrackbar('B','image',0,100,nothing)
-    # create switch for ON/OFF functionality
+    # crea switch para ON/OFF 
     switch = '0 : OFF \n1 : ON'
     cv2.createTrackbar(switch, 'image',0,1,nothing)
     while(1):
@@ -57,7 +81,7 @@ def cambiarRGB():
         k = cv2.waitKey(1) & 0xFF
         if k == 27:
             break
-        # get current positions of four trackbars
+        # obtiene la positions de los trackbars
         r = cv2.getTrackbarPos('R','image')
         g = cv2.getTrackbarPos('G','image')
         b = cv2.getTrackbarPos('B','image')
@@ -121,9 +145,7 @@ plt.show()
 
 #Recorta la imagen
 #(matriz,x,y)
-recor = recortar(img,400,300)
-plt.imshow(recor)
-plt.show()
+recortar()
 
 
 #(img,opcion)
