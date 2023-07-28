@@ -4,7 +4,7 @@ Este proyecto de Python trabaja las capas de las imágenes como matrices para ca
 
 
 ### Requisitos previos 
-- Asegúrate de tener instalado Python en tu sistema. 
+Asegúrate de tener instalado Python en tu sistema. 
 El proyecto ha sido probado en Python 3. (Asegúrate de mencionar la versión de Python que se necesita para el proyecto).
  
   ###   Instalación  
